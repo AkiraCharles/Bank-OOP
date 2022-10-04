@@ -8,7 +8,7 @@ class AbortProcess(Exception):
 
     pass
 
-
+#Abstract Base Class for creating different accounts
 class Account(ABC):
     def __init__(self, name, balance, type, password):
 

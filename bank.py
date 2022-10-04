@@ -1,5 +1,6 @@
 # ATM class for managing account objects
 
+# Import account.py
 from account import *
 
 
@@ -14,6 +15,7 @@ class Bank:
         self.address = address
         self.hours = hours
 
+    # Method Creating a new bank account
     def createBankAccount(self, clientName, amount, accountType, password):
 
         creating = True
@@ -66,6 +68,7 @@ class Bank:
             except AbortProcess as error:
                 print(error)
 
+    # Method to open a new bank account
     def openAccount(self):
         print("***Open Bank Account***")
         userName = input("What is the name of the account holder?")
@@ -77,6 +80,7 @@ class Bank:
         )
         print("Your new Account Number is: ", userAccountNumber)
 
+    # Method to close a bank account
     def closeBankAccount(self):
         print("***Close Bank Account***")
         account = self.getUserAccount()
@@ -86,6 +90,7 @@ class Bank:
         del account
         print("Your Bank Account has been deleted.")
 
+    # Method to check that account number is valid
     def validateAccountNumber(self):
         try:
             accountNumber = int(input("What is your account number: "))
@@ -95,16 +100,19 @@ class Bank:
             raise AbortProcess("There is no account number: " + str(accountNumber))
         return accountNumber
 
+    # Method to check password
     def validatePassword(self, userAccount):
         password = input("Please enter your password: ")
         userAccount.checkPasswordCorrect(password)
 
+    # Method to get the user account desired
     def getUserAccount(self):
         accountNumber = self.validateAccountNumber()
         userAccount = self.bankAccounts[accountNumber]
         self.validatePassword(userAccount)
         return userAccount
 
+    # Method to depoit funds to an account
     def deposit(self):
         print("***Making a deposit***")
         user = self.getUserAccount()
@@ -113,6 +121,7 @@ class Bank:
         print("Deposited: ", depositamount)
         print("Your new balance is: ", balance)
 
+    # Method to withdraw funds from an account
     def withdraw(self):
         print("***Making a withdrawal***")
         user = self.getUserAccount()
@@ -121,30 +130,22 @@ class Bank:
         print("Deposited: ", withdrawalamount)
         print("Your new balance is: ", balance)
 
+    # Method to check account balance
     def balance(self):
         print("***Get your balance***")
         user = self.getUserAccount()
         balance = user.getBalance()
         print("Your current balance is: ", balance)
 
+    # Method to show account holder's information
     def showInfo(self):
         print("**Account Information: ")
         user = self.getUserAccount()
         print(user)
 
+    # Method to show bank's information
     def bankInfo(self):
         print("Bank: ", self.name)
         print("Address: ", self.address)
         print("Opening Hours: ", self.hours)
 
-    def adminPermission(self):
-        for account in self.bankAccounts:
-            print(account)
-
-    # def createBankAccount(self, clientName, amount, password):
-    #     newAccount = Account(clientName, amount, password)
-    #     newAccountNumber = self.nextaccountNumber
-    #     self.bankAccounts[newAccountNumber] = newAccount
-    #     # Increment account number to prepare for a new account to be created
-    #     self.nextaccountNumber = self.nextaccountNumber + 1
-    #     return newAccountNumber
